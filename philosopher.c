@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmariani <mmariani@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:05:59 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/08 18:24:55 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:31:09 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_makingthingsready(t_phil *philo, int nb, char **argv)
 
 	philo->who_i_am = 0;
 	philo->am_i_alive = 1;
+	philo->status = 0;
 	philo->what_i_am_doing.eating = 0;
 	philo->what_i_am_doing.sleeping = 0;
 	philo->what_i_am_doing.thinking = 0;
@@ -28,9 +29,24 @@ void	ft_makingthingsready(t_phil *philo, int nb, char **argv)
 void	*ft_routine(t_phil *philo)
 {
 	ft_takechopstick();
-	if ((philo->stick.left && philo->stick.right) && philo->what_i_am_doing.)
+	if ((philo->stick.left && philo->stick.right) && philo->status == 0)
 	{
-		ft_printmsg();
+		philo->status = 1;
+		philo->what_i_am_doing.eating = 1;
+		ft_printmsg(philo, tempo);
+	}
+	ft_putbackchopstick();
+	if (philo->what_i_am_doing.eating == 1 && philo->status = 0)
+	{
+		philo->status = 1;
+		philo->what_i_am_doing.sleeping = 1;
+		ft_printmsg(philo,tempo);
+	}
+	if (philo->what_i_am_doing.sleeping == 1 && philo->status == 0)
+	{
+		philo->status = 1;
+		philo->what_i_am_doing.thinking = 1;
+		ft_printmsg(philo, tempo);
 	}
 
 }
@@ -76,5 +92,5 @@ int	main (int argc, char **argv)
 		return (0);
 	ft_makingthingsready(&philo, input->n_ph, argv);
 
-	return (0);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmariani <mmariani@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/08 18:02:24 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:51:55 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_phil
 	t_routine	what_i_am_doing;
 	int			am_i_alive;
 	t_chopstick	stick;
+	int			status;
 
 }		t_phil;
 
@@ -57,6 +58,8 @@ int		ft_atoi(const char *str);
 int		ft_check(char **argv, t_time *input);
 void	ft_makingthingsready(t_phil *philo, int nb, char **argv);
 void	ft_init_thread(t_phil *philo, t_routine *routine, int nb);
+void	ft_printmsg(t_phil *philo, int tempo);
+void	ft_takechopstick(t_phil * philo);
 
 
 #endif
