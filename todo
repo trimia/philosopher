@@ -1,4 +1,11 @@
-- what fucking do ft_routine??
-- PAY ATTENTION when you think to initialize thread and expecial when you want to start timer(which is the library?)
+- what fucking do ft_routine??:
+        + each philo take chopstick? maybe randomly? only who had 2 chopstcick could eat pay attention to deadlock (all have one chopstick)
+        +think
+        +eat
+        +sleap
+
+- PAY ATTENTION(time) when you think to initialize thread and expeciallly when you want to start timer(which is the library?)
 - where is oyu mutex? and your chopstick??-> not ready at all
 - state the cat is on... nope is alive or not??
+- monitor => time stamp in ms report info about philosopher routine
+        + maximun delay from die ande messae must be 10 ms

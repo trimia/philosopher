@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/07 22:34:19 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:02:24 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ typedef struct s_routine
 typedef struct s_phil
 {
 	pthread_t	who_i_am;
-	t_routine	what_am_i;
+	t_routine	what_i_am_doing;
 	int			am_i_alive;
+	t_chopstick	stick;
 
 }		t_phil;
 
 typedef struct s_chopstick
 {
 	int	how_many;
+	int right;
+	int left;
 	//mutex
 	
 } t_chopstick;

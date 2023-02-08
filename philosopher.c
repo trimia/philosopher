@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:05:59 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/07 22:27:12 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:24:55 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,20 @@ void	ft_makingthingsready(t_phil *philo, int nb, char **argv)
 
 	philo->who_i_am = 0;
 	philo->am_i_alive = 1;
-	philo->what_am_i.eating = 0;
-	philo->what_am_i.sleeping = 0;
-	philo->what_am_i.thinking = 0;
+	philo->what_i_am_doing.eating = 0;
+	philo->what_i_am_doing.sleeping = 0;
+	philo->what_i_am_doing.thinking = 0;
 	ft_init_thread(philo, &routine, nb);
 	
 }
 
-void	*ft_routine()
+void	*ft_routine(t_phil *philo)
 {
+	ft_takechopstick();
+	if ((philo->stick.left && philo->stick.right) && philo->what_i_am_doing.)
+	{
+		ft_printmsg();
+	}
 
 }
 
