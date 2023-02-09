@@ -6,15 +6,15 @@
 #    By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:33:56 by mmariani          #+#    #+#              #
-#    Updated: 2023/02/08 19:39:54 by mmariani         ###   ########.fr        #
+#    Updated: 2023/02/09 16:22:26 by mmariani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosopher
-CC = gcc
+CC = gcc -pthread
 FLAGS = -g -Wall -Wextra -Werror
 # LINKS = -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
-SRCS = philosopher.c utility.c routine.c
+SRCS = philosopher.c utility.c routine.c philthred.c
 OBJS = $(SRCS:.c=.o)
 
 # LIBFT = ./libft/libft.a

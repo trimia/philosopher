@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/08 19:51:55 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:06:27 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_time
 {
@@ -23,6 +24,7 @@ typedef struct s_time
 	int	tt_eat;
 	int	tt_sleep;
 	int	n_ph;
+	int whattimeisit;
 	//int n_ph_musteat
 }		t_time;
 
@@ -33,16 +35,6 @@ typedef struct s_routine
 	int sleeping;
 }		t_routine;
 
-typedef struct s_phil
-{
-	pthread_t	who_i_am;
-	t_routine	what_i_am_doing;
-	int			am_i_alive;
-	t_chopstick	stick;
-	int			status;
-
-}		t_phil;
-
 typedef struct s_chopstick
 {
 	int	how_many;
@@ -52,14 +44,31 @@ typedef struct s_chopstick
 	
 } t_chopstick;
 
-int		ft_isdigit(int n);
-int		ft_isspace(char str);
-int		ft_atoi(const char *str);
-int		ft_check(char **argv, t_time *input);
-void	ft_makingthingsready(t_phil *philo, int nb, char **argv);
-void	ft_init_thread(t_phil *philo, t_routine *routine, int nb);
-void	ft_printmsg(t_phil *philo, int tempo);
-void	ft_takechopstick(t_phil * philo);
+typedef struct s_phil
+{
+	pthread_t	who_i_am;
+	t_routine	what_i_am_doing;
+	int			am_i_alive;
+	t_chopstick	stick;
+	int			status;
+	t_time		input;
+
+}		t_phil;
+
+
+int			ft_isdigit(int n);
+int			ft_isspace(char str);
+int			ft_atoi(const char *str);
+void		ft_init_thread(t_phil *philo, t_routine *routine);
+void		ft_join(t_phil *philo);
+int			ft_check(char **argv, t_phil *philo);
+void		*ft_routine(void * arg);
+void		ft_makingthingsready(t_phil *philo, char **argv);
+void		ft_printmsg(t_phil *philo, int tempo);
+void		ft_takechopstick(t_phil * philo);
+uint64_t	get_time(void);
+
+
 
 
 #endif
