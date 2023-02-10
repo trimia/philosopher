@@ -6,7 +6,7 @@
 #    By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:33:56 by mmariani          #+#    #+#              #
-#    Updated: 2023/02/09 16:22:26 by mmariani         ###   ########.fr        #
+#    Updated: 2023/02/10 20:48:28 by mmariani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(LINKS) -o $(NAME) $(OBJS)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 
 # $(LIBFT): $(LIBFT_SRCS) $(LIBFT_INC)
 # 	@$(MAKE) -C ./libft

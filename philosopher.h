@@ -6,17 +6,25 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/09 18:06:27 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:48:27 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHER_H
-#define PHILOSOPHER_H
-#include <stdio.h>
-#include <unistd.h>
-#include <time.h>
-#include <pthread.h>
+# define PHILOSOPHER_H
+# include <stdio.h>
+# include <unistd.h>
+# include <time.h>
+# include <pthread.h>
 # include <sys/time.h>
+
+typedef enum s_status
+{
+	EATING 		= '1',
+	THINKING 	= '2',
+	SLEEPING 	= '3',
+	DIE 		= '42',
+} 			t_statut;
 
 typedef struct s_time
 {
@@ -24,7 +32,7 @@ typedef struct s_time
 	int	tt_eat;
 	int	tt_sleep;
 	int	n_ph;
-	int whattimeisit;
+	uint64_t whattimeisit;
 	//int n_ph_musteat
 }		t_time;
 
@@ -46,15 +54,19 @@ typedef struct s_chopstick
 
 typedef struct s_phil
 {
-	pthread_t	who_i_am;
+	int			who_am_i;
+	pthread_t	phill;
 	t_routine	what_i_am_doing;
 	int			am_i_alive;
 	t_chopstick	stick;
 	int			status;
 	t_time		input;
-
 }		t_phil;
 
+typedef struct s_status
+{
+	int statu
+}				t_tiempo
 
 int			ft_isdigit(int n);
 int			ft_isspace(char str);

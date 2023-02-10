@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:05:59 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/09 18:16:24 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:48:24 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_makingthingsready(t_phil *philo, char **argv)
 
 	nb = philo->input.n_ph;
 	printf("\nnbofphil%d\n",nb);
-	philo->who_i_am = 0;
+	philo->who_am_i = 0;
 	philo->am_i_alive = 1;
 	philo->status = 0;
 	philo->what_i_am_doing.eating = 0;
@@ -31,7 +31,8 @@ void	ft_makingthingsready(t_phil *philo, char **argv)
 
 int	ft_check(char **argv, t_phil *philo)
 {
-	int i;
+	int 	i;
+	// t_phil	philo[ft_atoi(argv[1])];
 
 	i = 1;
 	// while(i < input->n_ph )
@@ -49,14 +50,20 @@ int	ft_check(char **argv, t_phil *philo)
 
 int	main (int argc, char **argv)
 {
-	t_phil philo[250];
+	t_phil	philo[250];
+	// t_phil	philo[ft_atoi(argv[1])];
 
-	if(argc != 4)
+
+	if(!(argc == 5))
+	{
+		printf("ao");
 		return (0);
+	}
 	if (ft_check(argv , philo) == 0)
 		return (0);
 	ft_makingthingsready(philo, argv);
 	ft_join(philo);
+
 
 	return (1);
 }
