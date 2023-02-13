@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/10 20:48:27 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:57:48 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef enum s_status
 	EATING 		= '1',
 	THINKING 	= '2',
 	SLEEPING 	= '3',
-	DIE 		= '42',
-} 			t_statut;
+	DIE 		= '4',
+} 			t_status;
 
 typedef struct s_time
 {
@@ -32,7 +32,10 @@ typedef struct s_time
 	int	tt_eat;
 	int	tt_sleep;
 	int	n_ph;
+	int stillrunning;
 	uint64_t whattimeisit;
+	pthread_t newsies;
+	pthread_mutex_t writing;
 	//int n_ph_musteat
 }		t_time;
 
@@ -48,9 +51,17 @@ typedef struct s_chopstick
 	int	how_many;
 	int right;
 	int left;
+	pthread_mutex_t staybeef;
 	//mutex
 	
 } t_chopstick;
+
+typedef struct s_stats
+{
+	int			status;
+	uint64_t	time;
+
+}				t_stats;
 
 typedef struct s_phil
 {
@@ -59,26 +70,26 @@ typedef struct s_phil
 	t_routine	what_i_am_doing;
 	int			am_i_alive;
 	t_chopstick	stick;
-	int			status;
+	t_stats		status;
 	t_time		input;
+	uint64_t	lastmeal;
 }		t_phil;
-
-typedef struct s_status
-{
-	int statu
-}				t_tiempo
 
 int			ft_isdigit(int n);
 int			ft_isspace(char str);
 int			ft_atoi(const char *str);
-void		ft_init_thread(t_phil *philo, t_routine *routine);
+void		ft_init_thread(t_phil *philo);
 void		ft_join(t_phil *philo);
 int			ft_check(char **argv, t_phil *philo);
 void		*ft_routine(void * arg);
+void		*ft_monitor(void *philos);
 void		ft_makingthingsready(t_phil *philo, char **argv);
 void		ft_printmsg(t_phil *philo, int tempo);
 void		ft_takechopstick(t_phil * philo);
-uint64_t	get_time(void);
+void		ft_putbackchopstick(t_phil *philo);
+uint64_t	get_time(t_phil *philo);
+uint64_t	ft_modulus(uint64_t a, uint64_t b);
+void *bbbb(void * arg);
 
 
 

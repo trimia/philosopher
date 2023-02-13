@@ -9,3 +9,9 @@
 - state the cat is on... nope is alive or not??
 - monitor => time stamp in ms report info about philosopher routine
         + maximun delay from die ande messae must be 10 ms
+
+- IMPLEMENT  IN LIBFT VARIADIC FUNCTION MODULUS (ABS)
+
+
+
+&& ft_modulus(philo->status.time, philo->input.whattimeisit )< philo->input.tt_eat

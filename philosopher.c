@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:05:59 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/10 20:48:24 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/13 19:00:54 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ void	ft_makingthingsready(t_phil *philo, char **argv)
 	t_routine	routine;
 
 	nb = philo->input.n_ph;
-	printf("\nnbofphil%d\n",nb);
+	// printf("\nnbofphil%d\n",nb);
 	philo->who_am_i = 0;
 	philo->am_i_alive = 1;
-	philo->status = 0;
+	philo->status.status = 0;
+	philo->stick.right = 0;
+	philo->stick.left = 0;
 	philo->what_i_am_doing.eating = 0;
 	philo->what_i_am_doing.sleeping = 0;
 	philo->what_i_am_doing.thinking = 0;
-	ft_init_thread(philo, &routine);
+	pthread_create(&philo->input.newsies, NULL, &ft_monitor, (void *)philo);
+	ft_init_thread(philo);
 	
 }
 
@@ -56,7 +59,7 @@ int	main (int argc, char **argv)
 
 	if(!(argc == 5))
 	{
-		printf("ao");
+		// printf("ao");
 		return (0);
 	}
 	if (ft_check(argv , philo) == 0)

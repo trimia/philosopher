@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 19:31:27 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/07 22:18:09 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:50:38 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ int	ft_atoi(const char *str)
 	while (ft_isdigit(*str))
 		final = (final * 10) + (*str++ - 48);
 	return (final * sign);
+}
+
+uint64_t	ft_modulus(uint64_t a, uint64_t b)
+{
+	if (a < b)
+		return (b - a);
+	return (a - b);
 }
