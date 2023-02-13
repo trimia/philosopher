@@ -15,3 +15,11 @@
 
 
 && ft_modulus(philo->status.time, philo->input.whattimeisit )< philo->input.tt_eat
+
+
+	// philo->status.time = get_time();
+	// printf("\npreeat philo %d whattimeisit 0 = %llu\n",philo->who_am_i, philo->input.whattimeisit);
+	// printf("\npreeat philo %d statustime 0 %llu\n",philo->who_am_i, philo->status.time);
+	// printf("\npreeat philo %d difftempo = %llu\n",philo->who_am_i, ft_modulus(philo->status.time, philo->input.whattimeisit ));
+	// printf("\npreeat philo %d created\n",philo->who_am_i);
+	// printf("philo name %d",philo->who_am_i);
