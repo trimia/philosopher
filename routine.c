@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:39:13 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 12:58:21 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:57:18 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_takechopstick(t_phil *philo)
 	// 	l = philo->input.n_ph;
 	// if (r > philo->input.n_ph - 1)
 	// 	r = 0;
-	pthread_mutex_lock(&philo->right->chopstick);
+	pthread_mutex_lock(&philo->right->staybeef);
 	if (philo->right->chopstick == 0)
 		philo->right->chopstick = 1;
 	pthread_mutex_unlock(&philo->right->staybeef);
