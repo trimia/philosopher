@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:39:13 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 00:11:07 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:58:21 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,55 @@
 
 void	ft_takechopstick(t_phil *philo)
 {
-	int l;
-	int r;
+	// int l;
+	// int r;
 
-	l = philo->who_am_i - 1;
-	r = philo->who_am_i + 1;
-	if (l < 0 )
-		l = philo->input.n_ph;
-	if (r > philo->input.n_ph - 1)
-		r = 0;
-	pthread_mutex_lock(&philo[r].right.staybeef);
-	if (philo->right.chopstick == 0)
-		philo->right.chopstick = 1;
-	pthread_mutex_unlock(&philo[r].right.staybeef);
+	// l = philo->who_am_i - 1;
+	// r = philo->who_am_i + 1;
+	// if (l < 0 )
+	// 	l = philo->input.n_ph;
+	// if (r > philo->input.n_ph - 1)
+	// 	r = 0;
+	pthread_mutex_lock(&philo->right->chopstick);
+	if (philo->right->chopstick == 0)
+		philo->right->chopstick = 1;
+	pthread_mutex_unlock(&philo->right->staybeef);
 
 	pthread_mutex_lock(&philo->input.writing);
 	ft_printmsg(philo, get_time(),RIGHT);
 	pthread_mutex_unlock(&philo->input.writing);
 
-	pthread_mutex_lock(&philo[l].left.staybeef);
-	if (philo->left.chopstick == 0)
-		philo->left.chopstick = 1;
-	pthread_mutex_unlock(&philo[l].left.staybeef);
+	pthread_mutex_lock(&philo->left->staybeef);
+	if (philo->left->chopstick == 0)
+		philo->left->chopstick = 1;
+	pthread_mutex_unlock(&philo->left->staybeef);
 
 	pthread_mutex_lock(&philo->input.writing);
 	ft_printmsg(philo, get_time(), LEFT);
 	pthread_mutex_unlock(&philo->input.writing);
-	return (NULL);
+	// return (NULL);
 }
 
 void	ft_putbackchopstick(t_phil *philo)
 {
-	int l;
-	int r;
+	// int l;
+	// int r;
 
-	l = philo->who_am_i - 1;
-	r = philo->who_am_i + 1;
-	if (l < 0 )
-		l = philo->input.n_ph;
-	if (r > philo->input.n_ph)
-		r = 0;
-	pthread_mutex_lock(&philo[r].right.staybeef);
-	if (philo->right.chopstick == 1)
-		philo->right.chopstick = 0;
-	pthread_mutex_unlock(&philo[r].right.staybeef);
+	// l = philo->who_am_i - 1;
+	// r = philo->who_am_i + 1;
+	// if (l < 0 )
+	// 	l = philo->input.n_ph;
+	// if (r > philo->input.n_ph)
+	// 	r = 0;
+	pthread_mutex_lock(&philo->right->staybeef);
+	if (philo->right->chopstick == 1)
+		philo->right->chopstick = 0;
+	pthread_mutex_unlock(&philo->right->staybeef);
 
-	pthread_mutex_lock(&philo[l].left.staybeef);
-	if (philo->left.chopstick == 1)
-		philo->left.chopstick = 0;
-	pthread_mutex_unlock(&philo[l].left.staybeef);
+	pthread_mutex_lock(&philo->left->staybeef);
+	if (philo->left->chopstick == 1)
+		philo->left->chopstick = 0;
+	pthread_mutex_unlock(&philo->left->staybeef);
 }
 
 // ft_printmsg(philo->who_i_am, philo->what_i_am_doing.eating);

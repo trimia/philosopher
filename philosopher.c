@@ -6,18 +6,19 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:05:59 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 00:07:31 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:52:42 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	ft_makingthingsready(t_phil *philo, char **argv)
+void	ft_makingthingsready(t_phil *philo, char **argv, t_chopstick *stick)
 {
 	int nb;
 	t_routine	routine;
 
 	nb = philo->input.n_ph;
+
 	// printf("\nnbofphil%d\n",nb);
 	// philo->who_am_i = 0;
 	// philo->am_i_alive = 1;
@@ -28,8 +29,9 @@ void	ft_makingthingsready(t_phil *philo, char **argv)
 	// philo->what_i_am_doing.eating = 0;
 	// philo->what_i_am_doing.sleeping = 0;
 	// philo->what_i_am_doing.thinking = 0;
+	ft_initmutex(philo, stick);
 	pthread_create(&philo->input.newsies, NULL, &ft_monitor, (void *)philo);
-	ft_init_thread(philo);
+	ft_init_thread(philo, stick);
 	
 }
 
@@ -55,6 +57,7 @@ int	ft_check(char **argv, t_phil *philo)
 int	main (int argc, char **argv)
 {
 	t_phil	philo[250];
+	t_chopstick stick[250];
 	// t_phil	philo[ft_atoi(argv[1])];
 
 
@@ -65,8 +68,9 @@ int	main (int argc, char **argv)
 	}
 	if (ft_check(argv , philo) == 0)
 		return (0);
-	ft_makingthingsready(philo, argv);
+	ft_makingthingsready(philo, argv, stick);
 	ft_join(philo);
+	ft_destroymutex(philo, stick);
 
 
 	return (1);

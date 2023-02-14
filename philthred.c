@@ -6,24 +6,34 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:06:34 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 00:07:27 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 13:55:04 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	ft_init_thread(t_phil *philo)
+void	ft_init_thread(t_phil *philo, t_chopstick *stick)
 {
 	int	i;
+	int l;
+	int r;
 
-	// philo->who_i_am[philo->input.n_ph];
 	i = 0;
+	l = philo->who_am_i - 1;
+	r = philo->who_am_i + 1;
+	if (l < 0 )
+		l = philo->input.n_ph;
+	if (r > philo->input.n_ph - 1)
+		r = 0;
+	// philo->who_i_am[philo->input.n_ph];
 	// printf("\nnumber of philo = %d\n",philo->input.n_ph);
 	while (i < philo->input.n_ph)
 	{
 		philo[i].who_am_i = i;
-		philo[i].right.chopstick = 0;
-		philo[i].left.chopstick = 0;
+		philo[i].left = &stick[l]; 
+		philo[i].right = &stick[r]; 
+		philo[i].right->chopstick = 0;
+		philo[i].left->chopstick = 0;
 		philo[i].what_i_am_doing.eating = 0;
 		philo[i].what_i_am_doing.sleeping = 0;
 		philo[i].what_i_am_doing.thinking = 0;
@@ -75,7 +85,7 @@ void	*ft_routine(void *arg)
 	{
 		
 		ft_takechopstick(philo);
-		if ((philo->left.chopstick && philo->right.chopstick) && philo->status.status == 0)
+		if ((philo->left->chopstick && philo->right->chopstick) && philo->status.status == 0)
 			ft_etaing(philo);
 		if (philo->what_i_am_doing.eating == 1 && philo->status.status == 0)
 			ft_sleeping(philo);
@@ -95,6 +105,7 @@ void	ft_join(t_phil *philo)
 		// printf("\nphilo %d has finished\n", i);
 		i++;
 	}
+	pthread_join(philo->input.newsies, NULL);
 }
 
 	// {

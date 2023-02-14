@@ -12,7 +12,8 @@
 
 - IMPLEMENT  IN LIBFT VARIADIC FUNCTION MODULUS (ABS)
 
-
+- PUT IN THE RIGHT PLACE INIT MUTEX AND KILL MUTEX
+- CHECK PHTREAD JOIN WHERE AND WHAT??
 
 && ft_modulus(philo->status.time, philo->input.whattimeisit )< philo->input.tt_eat
 
@@ -23,3 +24,4 @@
 	// printf("\npreeat philo %d difftempo = %llu\n",philo->who_am_i, ft_modulus(philo->status.time, philo->input.whattimeisit ));
 	// printf("\npreeat philo %d created\n",philo->who_am_i);
 	// printf("philo name %d",philo->who_am_i);
+
