@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 18:20:05 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 13:51:59 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:10:21 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,27 @@ typedef struct s_phil
 	t_chopstick		*left;
 	t_chopstick		*right;
 	t_stats			status;
-	t_time			input;
+	t_time			*input;
 	uint64_t		lastmeal;
 }		t_phil;
 
 int			ft_isdigit(int n);
 int			ft_isspace(char str);
 int			ft_atoi(const char *str);
-void		ft_init_thread(t_phil *philo, t_chopstick *stick);
-void		ft_join(t_phil *philo);
+void		ft_init_thread(t_phil *philo, t_chopstick *stick, t_time *input);
+void		ft_join(t_phil *philo, t_time *input);
 int			ft_check(char **argv, t_phil *philo);
 void		ft_etaing(t_phil *philo);
 void		ft_sleeping(t_phil *philo);
 void		ft_thinking(t_phil *philo);
-void		ft_initmutex(t_phil *philo ,t_chopstick *stick);
-void		ft_destroymutex(t_phil *philo, t_chopstick *stick);
+void		ft_initmutex(t_phil *philo ,t_chopstick *stick, t_time  *input);
+void		ft_killmutex(t_phil *philo, t_chopstick *stick, t_time *input);
 
 void		*ft_routine(void * arg);
 void		*ft_monitor(void *philos);
-void		ft_makingthingsready(t_phil *philo, char **argv, t_chopstick *stick);
+void		ft_makingthingsready(char **argv, t_time *input);
+void		ft_philostart(t_phil *philo, t_chopstick *stick, t_time *input);
+
 void		ft_printmsg(t_phil *philo, int tempo, int a);
 void		ft_takechopstick(t_phil * philo);
 void		ft_putbackchopstick(t_phil *philo);

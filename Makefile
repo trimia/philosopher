@@ -6,13 +6,14 @@
 #    By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:33:56 by mmariani          #+#    #+#              #
-#    Updated: 2023/02/14 13:57:39 by mmariani         ###   ########.fr        #
+#    Updated: 2023/02/14 18:59:47 by mmariani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philosopher
 CC = gcc -pthread
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -g 
+# -Wall -Wextra -Werror
 # LINKS = -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit
 SRCS = philosopher.c utility.c action.c routine.c philthred.c mutex.c
 OBJS = $(SRCS:.c=.o)
@@ -81,6 +82,8 @@ $(NAME): $(OBJS)
 # $(NAME): $(LIBFT) $(OBJS)
 # 	$(CC) $(FLAGS) $(LINKS) $(LIBFT) -o $(NAME) $(OBJS)
 
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
 clean:
 	rm -f $(OBJS)
 # make -C libft clean

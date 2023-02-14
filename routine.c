@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:39:13 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 13:57:18 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 16:34:30 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	ft_takechopstick(t_phil *philo)
 		philo->right->chopstick = 1;
 	pthread_mutex_unlock(&philo->right->staybeef);
 
-	pthread_mutex_lock(&philo->input.writing);
+	pthread_mutex_lock(&philo->input->writing);
 	ft_printmsg(philo, get_time(),RIGHT);
-	pthread_mutex_unlock(&philo->input.writing);
+	pthread_mutex_unlock(&philo->input->writing);
 
 	pthread_mutex_lock(&philo->left->staybeef);
 	if (philo->left->chopstick == 0)
 		philo->left->chopstick = 1;
 	pthread_mutex_unlock(&philo->left->staybeef);
 
-	pthread_mutex_lock(&philo->input.writing);
+	pthread_mutex_lock(&philo->input->writing);
 	ft_printmsg(philo, get_time(), LEFT);
-	pthread_mutex_unlock(&philo->input.writing);
+	pthread_mutex_unlock(&philo->input->writing);
 	// return (NULL);
 }
 
@@ -68,7 +68,7 @@ void	ft_putbackchopstick(t_phil *philo)
 // ft_printmsg(philo->who_i_am, philo->what_i_am_doing.eating);
 void	ft_printmsg(t_phil *philo, int tempo ,int a)
 {
-	if (philo->input.stillrunning != 0)
+	if (philo->input->stillrunning != 0)
 	{
 		if (a == EATING)
 			printf("\n%d    philo = %d is eating\n", tempo, philo->who_am_i);
@@ -112,7 +112,7 @@ uint64_t	get_ttdead(t_phil *philo)
 
 	gettimeofday(&tv, NULL);
 	// return ((tv.tv_usec));
-	philo->input.whattimeisit  = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+	philo->input->whattimeisit  = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
 	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
 
 }

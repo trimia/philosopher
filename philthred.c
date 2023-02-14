@@ -6,73 +6,86 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 16:06:34 by mmariani          #+#    #+#             */
-/*   Updated: 2023/02/14 13:55:04 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/02/14 19:30:52 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	ft_init_thread(t_phil *philo, t_chopstick *stick)
+void	ft_init_thread(t_phil *philo, t_chopstick *stick, t_time *input)
 {
 	int	i;
 	int l;
 	int r;
 
 	i = 0;
-	l = philo->who_am_i - 1;
-	r = philo->who_am_i + 1;
-	if (l < 0 )
-		l = philo->input.n_ph;
-	if (r > philo->input.n_ph - 1)
-		r = 0;
+	// printf("\ninit thread\n");
+
 	// philo->who_i_am[philo->input.n_ph];
 	// printf("\nnumber of philo = %d\n",philo->input.n_ph);
-	while (i < philo->input.n_ph)
+		// printf("\ntest --> %d\n", input->n_ph);
+	while (i < input->n_ph)
 	{
+
 		philo[i].who_am_i = i;
-		philo[i].left = &stick[l]; 
-		philo[i].right = &stick[r]; 
+		l= i - 1;
+		r = i;
+		if(i == 0)
+			l = input->n_ph -1;
+		philo[i].left = &stick[l];
+		philo[i].right = &stick[r];
 		philo[i].right->chopstick = 0;
 		philo[i].left->chopstick = 0;
 		philo[i].what_i_am_doing.eating = 0;
 		philo[i].what_i_am_doing.sleeping = 0;
 		philo[i].what_i_am_doing.thinking = 0;
-		philo[i].am_i_alive = 1;
-		philo[i].input.stillrunning = 1;
 		philo[i].status.status = 0;
-		pthread_create(&(philo[i].phill), NULL, &ft_routine, &(philo[i]));
-		philo->input.whattimeisit = get_time(); // time 0
+		
+		philo[i].am_i_alive = 1;
+		// philo[i].input.stillrunning = 1;
 
 		i++;
 	}
+	ft_initmutex(philo, stick, input);
+	i = 0;
+	while (i < input->n_ph)
+	{
+		pthread_create(&(philo[i].phill), NULL, &ft_routine, &(philo[i]));
+		i++;
+	}
+		input->whattimeisit = get_time(); // time 0
 }
 
 void	*ft_monitor(void *philos)
 {
-	int		i;
 	t_phil	*philo;
+	int		i;
 
-	i = 0;
 	philo = (t_phil *)philos;
-	while(philo->input.stillrunning != 1)
+	printf("\nsiamo nel monitor\n");
+	
+	while(1)
 	{
-		while (i < philo->input.n_ph)
+		i = 0;
+		printf("\nn_ph-->  %d\n",philo[0].input->n_ph);
+		while (i < philo[0].input->n_ph)
 		{
 			pthread_mutex_lock(&philo[i].stop);
-			if (ft_modulus(philo[i].lastmeal, get_ttdead(philo)) > philo->input.tt_die)
+			// printf("se via piu giu cé1 una  valle");
+			if (ft_modulus(philo[i].lastmeal, get_ttdead(philo)) > philo[0].input->tt_die)
 			{
-				philo->input.stillrunning = 0;
+				// printf("perche non ci entra?");
+				philo[0].input->stillrunning = 0;
 				philo[i].am_i_alive = 0;
-				pthread_mutex_lock(&philo[i].input.writing);
-				printf("\n%llu    philo = %d is died\n", philo->input.whattimeisit, philo[i].who_am_i);
-				pthread_mutex_unlock(&philo[i].input.writing);
+				pthread_mutex_lock(&philo[0].input->writing);
+				// printf("\n%llu    philo = %d is died\n", philo[0].input->whattimeisit, philo[i].who_am_i);
+				pthread_mutex_unlock(&philo[0].input->writing);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&philo[i].stop);
 			i++;
 		}
 	}
-	return (NULL);
 }
 
 void	*ft_routine(void *arg)
@@ -80,6 +93,12 @@ void	*ft_routine(void *arg)
 	t_phil *philo;
 
 	philo = (t_phil *) arg;
+	printf("\nbenvenuti nella routine\n");
+	philo->lastmeal = get_time();
+
+
+
+
 	
 	while (1)
 	{
@@ -89,23 +108,26 @@ void	*ft_routine(void *arg)
 			ft_etaing(philo);
 		if (philo->what_i_am_doing.eating == 1 && philo->status.status == 0)
 			ft_sleeping(philo);
-		if (!(philo->input.stillrunning))
-			return NULL;
+		if (philo->what_i_am_doing.sleeping != 0)
+			ft_thinking(philo);
+		if (!(philo->input->stillrunning))
+			break;
 	}
+	return NULL;
 }
 
-void	ft_join(t_phil *philo)
+void	ft_join(t_phil *philo, t_time *input)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->input.n_ph)
+	pthread_join(input->newsies, NULL);
+	while (i < input->n_ph)
 	{
 		pthread_join(philo[i].phill, NULL);
 		// printf("\nphilo %d has finished\n", i);
 		i++;
 	}
-	pthread_join(philo->input.newsies, NULL);
 }
 
 	// {
